@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    background-image: url('../img/Background_jokenpo.jpg');
+    font-family: "Space Grotesk", sans-serif;
+   
+}
+
+.container
+{
+    max-width: 1200px; /*Largura maxima do conteudo do site*/
+    width: 100%;
+	margin: 0 auto;
+    margin-top: 3%;
+    padding-bottom: 2%;
+}
+
+h1
+{
+    color: #fff;
+    font-size: 100px;
+    font-weight: 600;
+    font-optical-sizing: auto;
+    font-style: normal;
+    text-align: center;
+}
+
+.conteudo-box,
+.game-cpu{
+    
+    display: flex;
+    justify-content: center;
+}
+
+.card-modulo{
+    background-color: #2D3436;
+    box-shadow: 0 5px 10px #3337;
+    border-radius: 5px;
+    height: 300px;
+    width: 249px;
+    margin-left: 3%;
+}
+
+.card-modulo img
+{
+    width: 100%;
+    /*border-bottom: 2px solid rgba(0,0,0,.125);*/
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.pic-box img
+{
+    width: 100%;
+    /*border-bottom: 2px solid rgba(0,0,0,.125);*/
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.card-modulo h2{
+    color: #fff;
+    text-align: center;
+    padding-top: 2%;
+    
+}
+
+.conteudo-box:hover :not(:hover)
+{
+    opacity: 0.5;
+}
+
+img:hover
+{
+ scale : 1.1;
+ cursor: pointer;
+}
+
+
+/* From Uiverse.io by adamgiebl */ 
+button {
+    margin-bottom: 0.8%;
+    background: rgb(0, 0, 0, 0.6);
+    width: 200px;
+    height: 80px;
+    color: #fff;
+    font-size: 1.375em;
+    text-decoration: none;
+    border: 1px solid gray;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #2D3436;
+  }
+
+  #new_game, 
+  #score,
+  #quit
+  {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #win_loose
+{
+    color: white;
+    display : block;
+    text-align: center;
+    padding: 5%;
+}
+
+#placar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+    margin: 20px auto;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .jogador {
+    text-align: center;
+  }
+  
+  .jogador h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #ffcc00;
+  }
+  
+  .pontos {
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+  
