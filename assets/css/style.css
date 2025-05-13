@@ -16,9 +16,15 @@ body
 {
     max-width: 1200px; /*Largura maxima do conteudo do site*/
     width: 100%;
-	margin: 0 auto;
+	  margin: 0 auto;
     margin-top: 3%;
     padding-bottom: 2%;
+}
+
+#splashGame
+{
+  display: flex; 
+  justify-content: center;
 }
 
 h1
@@ -29,6 +35,11 @@ h1
     font-optical-sizing: auto;
     font-style: normal;
     text-align: center;
+}
+
+#screen1
+{
+  display: none;
 }
 
 .conteudo-box,

@@ -8,57 +8,33 @@
         <title>Splash joken po</title>
     </head>
 
-    <body>
+    <body onload="startSplash()">
 
         <div class="container">
-
-            <!--<div style="display: flex; justify-content: center;">
-                <div id="jo"> 
-                    <div class="animate__animated animate__bounce">
-                        <h1> Jo </h1> 
-                    </div>
-                </div>
-        
-                <div id="ken"> 
-                    <div class="animate__animated animate__bounce">
-                        <h1> ken </h1> 
-                    </div>
-                </div>
-        
-                <div id="po">
-                    <div class="animate__animated animate__bounce">
-                        <h1> Pô </h1>
-                    </div>
-                </div>
-            </div>-->
-
-                <!--<button id="new_game" type="button"> New Game </button>
-                <button id="score" type="button"> Score </button>
-                <button id="quit" type="button"> Quit Game</button>-->
-        
 
             <div id="screen1" class="conteudo-box">
                 <div class="card-modulo">
                     <div id="pedra_01" class="pic-box">
                         <img src="assets/img/icons/fist.png">
                     </div>
-                    <h2> Pedra </h3>
+                    <h2> Pedra </h2>
                 </div>
                 <div class="card-modulo">
                     <div id="papel_02" class="pic-box">
                         <img src="assets/img/icons/hand-paper.png">
                     </div>
-                    <h2> Papel </h3>
+                    <h2> Papel </h2>
                 </div>
                 <div class="card-modulo">
                     <div id="tesoura_03" class="pic-box">
                         <img src="assets/img/icons/scissors.png">
                     </div>
-                    <h2> Tesoura </h3>
+                    <h2> Tesoura </h2>
                 </div>
             </div>
 
             <div id="screen2" class="conteudo-box" style="display: none;"> 
+                <div class="animate__animated animate__zoomIn"> </div>
                 <div id="placar">
                     <div class="jogador">
                       <h2>Jogador</h2>
@@ -68,7 +44,7 @@
                       <h2>Computador</h2>
                       <div class="pontos" id="pontos-computador">0</div>
                     </div>
-                  </div>
+                </div>
             </div>
 
         </div>
