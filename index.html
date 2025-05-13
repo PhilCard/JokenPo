@@ -10,42 +10,51 @@
 
     <body onload="startSplash()">
 
+        <!--começo background animado -->
+        <div class="wrapper">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <!--fim background animado -->
+
         <div class="container">
 
-            <div id="screen1" class="conteudo-box">
-                <div class="card-modulo">
-                    <div id="pedra_01" class="pic-box">
-                        <img src="assets/img/icons/fist.png">
+            <div id="joken_cards">
+                <div class="animate__animated animate__zoomIn">
+                    <div class="card-modulo">
+                        <div id="pedra_01" class="pic-box">
+                            <img src="assets/img/icons/fist.png">
+                        </div>
+                        <h2> Pedra </h2>
                     </div>
-                    <h2> Pedra </h2>
                 </div>
-                <div class="card-modulo">
-                    <div id="papel_02" class="pic-box">
-                        <img src="assets/img/icons/hand-paper.png">
+                <div class="animate__animated animate__zoomIn animate__delay-1s">
+                    <div class="card-modulo">
+                        <div id="papel_02" class="pic-box">
+                            <img src="assets/img/icons/hand-paper.png">
+                        </div>
+                        <h2> Papel </h2>
                     </div>
-                    <h2> Papel </h2>
                 </div>
-                <div class="card-modulo">
-                    <div id="tesoura_03" class="pic-box">
-                        <img src="assets/img/icons/scissors.png">
+                <div class="animate__animated animate__zoomIn animate__delay-2s">
+                    <div class="card-modulo">
+                        <div id="tesoura_03" class="pic-box">
+                            <img src="assets/img/icons/scissors.png">
+                        </div>
+                        <h2> Tesoura </h2>
                     </div>
-                    <h2> Tesoura </h2>
                 </div>
             </div>
 
-            <div id="screen2" class="conteudo-box" style="display: none;"> 
-                <div class="animate__animated animate__zoomIn"> </div>
-                <div id="placar">
-                    <div class="jogador">
-                      <h2>Jogador</h2>
-                      <div class="pontos" id="pontos-jogador">0</div>
-                    </div>
-                    <div class="jogador">
-                      <h2>Computador</h2>
-                      <div class="pontos" id="pontos-computador">0</div>
-                    </div>
-                </div>
-            </div>
+            <div id="joken_result" class="conteudo-box-result"> </div>
 
         </div>
 

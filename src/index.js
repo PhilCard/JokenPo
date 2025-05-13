@@ -41,54 +41,11 @@ function startSplash()
 
 btn_newGame.addEventListener('click', function(){
 
-    document.getElementById('screen1').style.display = 'flex';
-    document.getElementById('screen2').style.display = 'none';
+    document.getElementById('joken_cards').style.display = 'flex';
+    document.getElementById('joken_cards').style.justifyContent = 'space-evenly';
+    document.getElementById('joken_result').style.display = 'none';
     document.getElementById('splashGame').style.display = 'none';
     btn_newGame.style.display = 'none';
     btn_score.style.display = 'none';
+
 });
-
-
-
-
-
-
-
-
-        //const screen1 = document.getElementById('screen1');
-        //const screen2 = document.getElementById('screen2');
-
-        
-
-        /*
-        const kenSplash = document.getElementById('ken');
-        const poSplash = document.getElementById('po');
-        const btn_newGame = document.getElementById('new_game');
-        const btn_quit = document.getElementById('quit')
-
-        clean code : criar div principal chamado splash, adiconar via javascript um createElement para o restante das letras de jokenpo, depois de clicado no star game remover as divs jokenpo
-
-        colocar delay nas animações das letras, ao invés de setinterval
-
-        var i = 4;
-        //executa ação em um intervalo determinado
-        var x = setInterval(function() 
-        { 
-            i = i - 1;
-
-            if(i === 3) 
-            {
-                kenSplash.style.display = 'block';
-            }
-
-            if(i === 2)
-            {
-                poSplash.style.display = 'block';
-                btn_newGame.style.display = 'block';
-                btn_quit.style.display = 'block';
-                clearInterval(x);
-            }
-
-         }, 1000);
-
-         */

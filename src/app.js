@@ -1,24 +1,21 @@
-function newGame()
-{
-    document.getElementById('screen1').style.display = 'flex';
-    document.getElementById('screen2').style.display = 'none';
-}
+let player = 0;
+let cpu = 0;
+//localStorage.setItem('pontos_player', player);
+//console.log(localStorage.getItem('pontos_player'));
 
-function quitGame()
-{
-    window.location = 'index.html';
-}
+console.log(localStorage.getItem('pontos_cpu')); // usar get aqui em cima, setar lá em baixo ao fim do processamento
 
-document.getElementById('screen1').addEventListener("click", function(event) {
+document.getElementById('joken_cards').addEventListener("click", function(event) {
 
     let numero = Math.floor(Math.random() * 3) + 1;
     let card_click = event.target.closest('.card-modulo > div[id]');
   
     if (card_click) 
     {
-        document.getElementById('screen2').style.display = 'flex';
-        document.getElementById('screen1').style.display = 'none';
-        
+        document.getElementById('joken_result').style.display = 'flex';
+        document.getElementById('joken_result').style.paddingTop = '10%';
+        document.getElementById('joken_cards').style.display = 'none';
+
         if (card_click.id === 'pedra_01') 
         {
             alert('clicou na pedra');
@@ -27,9 +24,22 @@ document.getElementById('screen1').addEventListener("click", function(event) {
         if (card_click.id === 'papel_02') 
         {
             if(numero === 1) 
-            {
-                document.getElementById('screen2').innerHTML = `
-                    <div id="screen2" class="conteudo-box">
+            {   
+                player++
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="pontos" id="pontos-jogador">${player}</div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    
                         <div class="animate__animated animate__zoomIn">
                             <div class="card-modulo">
                                 <div id="papel_02" class="pic-box">
@@ -47,7 +57,7 @@ document.getElementById('screen1').addEventListener("click", function(event) {
                             </div>
                         </div>
 
-                        <div id="card" class="card-modulo">
+                        <div class="card-modulo">
                             <div class="animate__animated animate__zoomIn">
                                 <div id="pedra_01" class="pic-box">
                                     <img src="assets/img/icons/fist.png">
@@ -60,8 +70,22 @@ document.getElementById('screen1').addEventListener("click", function(event) {
             }
             else if(numero === 2)
             {
-                document.getElementById('screen2').innerHTML = `
-                    <div id="screen2" class="conteudo-box">
+               player++;
+               cpu++;
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="pontos" id="pontos-jogador">${player}</div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+
                         <div class="card-modulo">
                             <div id="papel_02" class="pic-box">
                                 <img src="assets/img/icons/hand-paper.png">
@@ -85,9 +109,22 @@ document.getElementById('screen1').addEventListener("click", function(event) {
                 `;
             }
             else if (numero === 3)
-            {
-                document.getElementById('screen2').innerHTML = `
-                    <div id="screen2" class="conteudo-box">
+            {   
+                cpu++;
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="pontos" id="pontos-jogador">${player}</div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+
                         <div class="card-modulo">
                             <div id="papel_02" class="pic-box">
                                 <img src="assets/img/icons/hand-paper.png">
@@ -109,6 +146,7 @@ document.getElementById('screen1').addEventListener("click", function(event) {
                         </div>
                     </div> 
                 `;
+                localStorage.setItem('pontos_cpu', cpu);
             }
         }
 
@@ -118,3 +156,14 @@ document.getElementById('screen1').addEventListener("click", function(event) {
         }
     }
 });
+
+function newGame()
+{
+    document.getElementById('joken_cards').style.display = 'flex';
+    document.getElementById('joken_result').style.display = 'none';
+}
+
+function quitGame()
+{
+    window.location = 'index.html';
+}
