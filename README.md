@@ -46,7 +46,7 @@ Um jogo clássico de Jokenpô (Pedra, Papel e Tesoura) feito com HTML, CSS e Jav
 
 ```bash
 # Clone este repositório
-git clone https://github.com/seunome/jokenpo.git
+git clone https://github.com/PhilCard/JokenPo.git
 
 # Acesse a pasta
 cd jokenpo
