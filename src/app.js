@@ -1,9 +1,10 @@
+
 let player = 0;
 let cpu = 0;
+//localStorage.setItem('pontos_cpu', cpu);
 //localStorage.setItem('pontos_player', player);
 //console.log(localStorage.getItem('pontos_player'));
-
-console.log(localStorage.getItem('pontos_cpu')); // usar get aqui em cima, setar lá em baixo ao fim do processamento
+//console.log(localStorage.getItem('pontos_cpu')); // usar get aqui em cima
 
 document.getElementById('joken_cards').addEventListener("click", function(event) {
 
@@ -16,10 +17,162 @@ document.getElementById('joken_cards').addEventListener("click", function(event)
         document.getElementById('joken_result').style.paddingTop = '10%';
         document.getElementById('joken_cards').style.display = 'none';
 
+
+         /* <----------- começo bloco pedra --------------------> */
+
         if (card_click.id === 'pedra_01') 
         {
-            alert('clicou na pedra');
+            if(numero === 1)
+            {
+                player++;
+                cpu++;
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="animate__animated animate__zoomIn">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/fist.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+
+                        <div id='win_loose'>
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                                <h2> EMPATE! </h2>
+                                <button type='button' onclick="newGame()"> Jogar novamente </button>
+                                <button type='button' onclick="quitGame()"> Quit Game </button>  
+                            </div>
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
+                                <div id="pedra_01" class="pic-box">
+                                    <img src="assets/img/icons/fist.png">
+                                </div>
+                                <h2> Pedra </h2>
+                            </div>
+                        </div>
+                    </div> 
+                `;
+            }
+            else if(numero === 2)
+            {
+                cpu++;
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="animate__animated animate__zoomIn">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/fist.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+
+                        <div id='win_loose'>
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                                <h2> VOCÊ PERDEU! </h2>
+                                <button type='button' onclick="newGame()"> Jogar novamente </button>
+                                <button type='button' onclick="quitGame()"> Quit Game </button>  
+                            </div>
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
+                                <div id="pedra_01" class="pic-box">
+                                    <img src="assets/img/icons/hand-paper.png">
+                                </div>
+                                <h2> Pedra </h2>
+                            </div>
+                        </div>
+                    </div> 
+                `;
+            }
+            else if(numero === 3)
+            {
+                player++;
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="animate__animated animate__zoomIn">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/fist.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+
+                        <div id='win_loose'>
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                                <h2> VOCÊ VENCEU! </h2>
+                                <button type='button' onclick="newGame()"> Jogar novamente </button>
+                                <button type='button' onclick="quitGame()"> Quit Game </button>  
+                            </div>
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
+                                <div id="pedra_01" class="pic-box">
+                                    <img src="assets/img/icons/scissors.png">
+                                </div>
+                                <h2> Pedra </h2>
+                            </div>
+                        </div>
+                    </div> 
+                `;
+            }
         }
+
+        /* <----------- fim bloco pedra --------------------> */
+
+
+        /* <----------- começo bloco papel --------------------> */
 
         if (card_click.id === 'papel_02') 
         {
@@ -28,15 +181,18 @@ document.getElementById('joken_cards').addEventListener("click", function(event)
                 player++
                 document.getElementById('joken_result').innerHTML = `
                     <div class="conteudo-box-result">
-
                         <div id="placar">
                             <div class="jogador">
                                 <h2>Jogador</h2>
-                                <div class="pontos" id="pontos-jogador">${player}</div>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
                             </div>
                             <div class="jogador">
                                 <h2>Computador</h2>
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
                             </div>
                         </div>
                     
@@ -50,15 +206,15 @@ document.getElementById('joken_cards').addEventListener("click", function(event)
                         </div>
 
                         <div id='win_loose'>
-                            <div class="animate__animated animate__zoomIn">
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
                                 <h2> VOCÊ VENCEU! </h2>
                                 <button type='button' onclick="newGame()"> Jogar novamente </button>
                                 <button type='button' onclick="quitGame()"> Quit Game </button>  
                             </div>
                         </div>
 
-                        <div class="card-modulo">
-                            <div class="animate__animated animate__zoomIn">
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
                                 <div id="pedra_01" class="pic-box">
                                     <img src="assets/img/icons/fist.png">
                                 </div>
@@ -74,36 +230,45 @@ document.getElementById('joken_cards').addEventListener("click", function(event)
                cpu++;
                 document.getElementById('joken_result').innerHTML = `
                     <div class="conteudo-box-result">
-
                         <div id="placar">
                             <div class="jogador">
                                 <h2>Jogador</h2>
-                                <div class="pontos" id="pontos-jogador">${player}</div>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
                             </div>
                             <div class="jogador">
                                 <h2>Computador</h2>
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="card-modulo">
-                            <div id="papel_02" class="pic-box">
-                                <img src="assets/img/icons/hand-paper.png">
+                        <div class="animate__animated animate__zoomIn">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/hand-paper.png">
+                                </div>
+                                <h2> Papel </h2>
                             </div>
-                            <h2> Papel </h2>
                         </div>
 
                         <div id='win_loose'>
-                            <h2> EMPATE! </h2>
-                            <button type='button' onclick="newGame()"> Jogar novamente </button>
-                            <button type='button' onclick="quitGame()"> Quit Game </button>  
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                                <h2> EMPATE! </h2>
+                                <button type='button' onclick="newGame()"> Jogar novamente </button>
+                                <button type='button' onclick="quitGame()"> Quit Game </button> 
+                            </div> 
                         </div>
 
-                        <div class="card-modulo">
-                            <div id="papel_02" class="pic-box">
-                                <img src="assets/img/icons/hand-paper.png">
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/hand-paper.png">
+                                </div>
+                                <h2> Papel </h2>
                             </div>
-                            <h2> Papel </h2>
                         </div>
                     </div> 
                 `;
@@ -117,43 +282,206 @@ document.getElementById('joken_cards').addEventListener("click", function(event)
                         <div id="placar">
                             <div class="jogador">
                                 <h2>Jogador</h2>
-                                <div class="pontos" id="pontos-jogador">${player}</div>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
                             </div>
                             <div class="jogador">
                                 <h2>Computador</h2>
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="card-modulo">
-                            <div id="papel_02" class="pic-box">
-                                <img src="assets/img/icons/hand-paper.png">
+                        <div class="animate__animated animate__zoomIn">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/hand-paper.png">
+                                </div>
+                                <h2> Papel </h2>
                             </div>
-                            <h2> Papel </h2>
                         </div>
 
                         <div id='win_loose'>
-                            <h2> VOCÊ PERDEU! </h2>
-                            <button type='button' onclick="newGame()"> Jogar novamente </button>
-                            <button type='button' onclick="quitGame()"> Quit Game </button>  
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                                <h2> VOCÊ PERDEU! </h2>
+                                <button type='button' onclick="newGame()"> Jogar novamente </button>
+                                <button type='button' onclick="quitGame()"> Quit Game </button> 
+                            </div> 
                         </div>
 
-                        <div class="card-modulo">
-                            <div id="tesoura_03" class="pic-box">
-                                <img src="assets/img/icons/scissors.png">
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
+                                <div id="tesoura_03" class="pic-box">
+                                    <img src="assets/img/icons/scissors.png">
+                                </div>
+                                <h2> Tesoura </h2>
                             </div>
-                            <h2> Tesoura </h2>
                         </div>
                     </div> 
                 `;
-                localStorage.setItem('pontos_cpu', cpu);
+                
             }
         }
+        /* <----------- fim bloco papel --------------------> */
+
+
+        /* <----------- começo bloco tesoura --------------------> */
 
         if(card_click.id === 'tesoura_03')
         {
-            //bloco de cod tesoura
+            if(numero === 1)
+            {
+                cpu++;
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/scissors.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+
+                        <div id='win_loose'>
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                                <h2> VOCÊ PERDEU! </h2>
+                                <button type='button' onclick="newGame()"> Jogar novamente </button>
+                                <button type='button' onclick="quitGame()"> Quit Game </button> 
+                            </div> 
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/fist.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+                    </div> 
+                `;
+            }
+
+            else if(numero === 2)
+            {
+                player++;
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/scissors.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+
+                        <div id='win_loose'>
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                                <h2> VOCÊ VENCEU! </h2>
+                                <button type='button' onclick="newGame()"> Jogar novamente </button>
+                                <button type='button' onclick="quitGame()"> Quit Game </button> 
+                            </div> 
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/hand-paper.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+                    </div> 
+                `;
+            }
+
+            else if(numero === 3)
+            {
+                player++;
+                cpu++;
+                document.getElementById('joken_result').innerHTML = `
+                    <div class="conteudo-box-result">
+                        <div id="placar">
+                            <div class="jogador">
+                                <h2>Jogador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-jogador">${player}</div>
+                                </div>
+                            </div>
+                            <div class="jogador">
+                                <h2>Computador</h2>
+                                <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/scissors.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+
+                        <div id='win_loose'>
+                            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                                <h2> EMPATE! </h2>
+                                <button type='button' onclick="newGame()"> Jogar novamente </button>
+                                <button type='button' onclick="quitGame()"> Quit Game </button> 
+                            </div> 
+                        </div>
+
+                        <div class="animate__animated animate__zoomIn animate__delay-1s">
+                            <div class="card-modulo">
+                                <div id="papel_02" class="pic-box">
+                                    <img src="assets/img/icons/scissors.png">
+                                </div>
+                                <h2> Papel </h2>
+                            </div>
+                        </div>
+                    </div> 
+                `;
+                
+            }
         }
+
+        /* <----------- fim bloco tesoura --------------------> */
     }
 });
 
