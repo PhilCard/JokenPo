@@ -3,7 +3,7 @@ import { cards } from '../src/cardspo.js';
 //localStorage.setItem('pontos_cpu', cpu);
 //localStorage.setItem('pontos_player', player);
 //console.log(localStorage.getItem('pontos_player'));
-//console.log(localStorage.getItem('pontos_cpu')); // usar get aqui em cima
+//console.log(localStorage.getItem('pontos_cpu'));
 
 /* <------------ começo tela splash ------------> */ 
 
@@ -109,30 +109,83 @@ joken_div.addEventListener('click', function (event) {
         document.getElementById('joken_cards').style.display = 'none';
 
         if(clicado.id == 1)
-        {   
-            if(n_card != 1) 
+        {
+            switch(n_card)
             {
-                if(n_card === 2)
-                {
+                case 1:
+                    jogador++;
                     cpu++;
+
                     html += `
-                        <div id="placar">
-                            <div class="jogador">
-                                <h2>Jogador</h2>
-                                <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                    <div class="pontos" id="pontos-jogador">${jogador}</div>
-                                </div>
-                            </div>
-                            <div class="jogador">
-                                <h2>Computador</h2>
-                                <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                    <div class="pontos" id="pontos-computador">${cpu}</div>
-                                </div>
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
                             </div>
                         </div>
-                        `;
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
 
-                    for(let card of cards) //usar order nos botões da div win e order em um card joken po, usar continue
+                    for(let i=0; i<2; i++) //contador loop para duplicar os cards de empate
+                    {
+                        for(let card of cards) 
+                        {
+                            if(card.titulo === "Tesoura" || card.titulo === "Papel"){continue;}
+                        
+                            html += `
+                            <div id="${card.id}">
+                                <div class="animate__animated animate__zoomIn animate__delay-1s">
+                                    <div class="card-modulo">
+                                        <div class="pic-box">
+                                            <img src="${card.img}">
+                                        </div>
+                                        <h2> ${card.titulo} </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                        }
+                    }
+                    html +=`
+                    <div id="win_loose">
+                        <div class="animate__animated animate__zoomIn animate__delay-2s">
+                            <h2> EMPATE! </h2>
+                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
+                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                        </div>
+                    </div>
+                    `;
+                    container.innerHTML = html;
+                    document.getElementById('1').style.order = '2';
+                    break;
+
+                case 2:
+                    cpu++;
+                    html += `
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
+                            </div>
+                        </div>
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    for(let card of cards)
                     {
                         if(card.titulo === "Tesoura"){continue;}
                         html += `
@@ -159,27 +212,241 @@ joken_div.addEventListener('click', function (event) {
                     `;
                     container.innerHTML = html;
                     document.getElementById('2').style.order = '2';
-                }
-                else
-                {
+
+                    break;
+
+                default:
                     jogador++;
 
                     html += `
-                        <div id="placar">
-                            <div class="jogador">
-                                <h2>Jogador</h2>
-                                <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                    <div class="pontos" id="pontos-jogador">${jogador}</div>
-                                </div>
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
                             </div>
-                            <div class="jogador">
-                                <h2>Computador</h2>
-                                <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                    <div class="pontos" id="pontos-computador">${cpu}</div>
+                        </div>
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    for(let card of cards)
+                    {
+                        if(card.titulo === "Papel"){continue;}
+                        html += `
+                        <div id="${card.id}">
+                            <div class="animate__animated animate__zoomIn animate__delay-1s">
+                                <div class="card-modulo">
+                                    <div class="pic-box">
+                                        <img src="${card.img}">
+                                    </div>
+                                    <h2> ${card.titulo} </h2>
                                 </div>
                             </div>
                         </div>
                         `;
+                    }
+
+                    html +=`
+                    <div id="win_loose">
+                        <div class="animate__animated animate__zoomIn animate__delay-2s">
+                            <h2> VOCÊ VENCEU! </h2>
+                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
+                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                        </div>
+                    </div>
+                    `;
+                    container.innerHTML = html;
+                    document.getElementById('3').style.order = '2';
+                    break;
+
+            }
+        }
+
+        if(clicado.id == 2)
+        {
+            switch(n_card)
+            {
+                case 1:
+                    //alert('você venceu');
+                    jogador++;
+                    
+                    html += `
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
+                            </div>
+                        </div>
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    for(let card of cards)
+                    {
+                        if(card.titulo === "Tesoura"){continue;}
+                        html += `
+                        <div id="${card.id}">
+                            <div class="animate__animated animate__zoomIn animate__delay-1s">
+                                <div class="card-modulo">
+                                    <div class="pic-box">
+                                        <img src="${card.img}">
+                                    </div>
+                                    <h2> ${card.titulo} </h2>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    }
+                    html +=`
+                    <div id="win_loose">
+                        <div class="animate__animated animate__zoomIn animate__delay-2s">
+                            <h2> VOCÊ VENCEU </h2>
+                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
+                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                        </div>
+                    </div>
+                    `;
+                    container.innerHTML = html;
+                    document.getElementById('1').style.order = '2';
+                    break;
+                    
+                case 2:
+                    jogador++;
+                    cpu++;
+                    html += `
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
+                            </div>
+                        </div>
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    for(let i=0; i<2; i++)
+                    {
+                        for(let card of cards)
+                        {   
+                            if(card.titulo === "Pedra" || card.titulo === "Tesoura"){continue;}
+                            html += `
+                            <div id="${card.id}">
+                                <div class="animate__animated animate__zoomIn animate__delay-1s">
+                                    <div class="card-modulo">
+                                        <div class="pic-box">
+                                            <img src="${card.img}">
+                                        </div>
+                                        <h2> ${card.titulo} </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                        }
+                    }
+                    
+                    html +=`
+                    <div id="win_loose">
+                        <div class="animate__animated animate__zoomIn animate__delay-2s">
+                            <h2> EMPATE </h2>
+                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
+                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                        </div>
+                    </div>
+                    `;
+                    container.innerHTML = html;
+                    document.getElementById('2').style.order = '2';
+                    break;
+
+                default: 
+                    cpu++;    
+                    html += `
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
+                            </div>
+                        </div>
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    for(let card of cards)
+                    {
+                        if(card.titulo === "Pedra"){continue;}
+                        html += `
+                        <div id="${card.id}">
+                            <div class="animate__animated animate__zoomIn animate__delay-1s">
+                                <div class="card-modulo">
+                                    <div class="pic-box">
+                                        <img src="${card.img}">
+                                    </div>
+                                    <h2> ${card.titulo} </h2>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    }
+                    html +=`
+                    <div id="win_loose">
+                        <div class="animate__animated animate__zoomIn animate__delay-2s">
+                            <h2> VOCÊ PERDEU </h2>
+                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
+                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                        </div>
+                    </div>
+                    `;
+                    container.innerHTML = html;
+                    document.getElementById('3').style.order = '2';
+                    break;
+            }
+        }
+
+        if(clicado.id == 3)
+        {
+            switch(n_card)
+            {
+                case 1:
+                    cpu++;    
+                    html += `
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
+                            </div>
+                        </div>
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
 
                     for(let card of cards)
                     {
@@ -200,47 +467,38 @@ joken_div.addEventListener('click', function (event) {
                     html +=`
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> VOCÊ VENCEU! </h2>
+                            <h2> VOCÊ PERDEU </h2>
                             <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
                             <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
                         </div>
                     </div>
                     `;
-
                     container.innerHTML = html;
-                    document.getElementById('3').style.order = '2';
-                }
-            }
-            else
-            {
-                //alert('empate');
-                jogador++;
-                cpu++;
+                    document.getElementById('1').style.order = '2';
+                    break;
 
-                html += `
-                <div id="placar">
-                    <div class="jogador">
-                        <h2>Jogador</h2>
-                        <div class="animate__animated animate__zoomIn animate__delay-3s">
-                            <div class="pontos" id="pontos-jogador">${jogador}</div>
+                case 2:
+                    jogador++;    
+                    html += `
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
+                            </div>
+                        </div>
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="jogador">
-                        <h2>Computador</h2>
-                        <div class="animate__animated animate__zoomIn animate__delay-3s">
-                            <div class="pontos" id="pontos-computador">${cpu}</div>
-                        </div>
-                    </div>
-                </div>
-                `;
+                    `;
 
-                let i = 0;
-                for(i=0; i<2; i++)
-                {
-                    for(let card of cards) 
+                    for(let card of cards)
                     {
-                        if(card.titulo === "Tesoura" || card.titulo === "Papel"){continue;}
-                    
+                        if(card.titulo === "Pedra"){continue;}
                         html += `
                         <div id="${card.id}">
                             <div class="animate__animated animate__zoomIn animate__delay-1s">
@@ -254,26 +512,72 @@ joken_div.addEventListener('click', function (event) {
                         </div>
                         `;
                     }
-                
-                }
-                html +=`
-                <div id="win_loose">
-                    <div class="animate__animated animate__zoomIn animate__delay-2s">
-                        <h2> EMPATE! </h2>
-                        <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                        <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                    html +=`
+                    <div id="win_loose">
+                        <div class="animate__animated animate__zoomIn animate__delay-2s">
+                            <h2> VOCÊ VENCEU </h2>
+                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
+                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                        </div>
                     </div>
-                </div>
-                `;
+                    `;
+                    container.innerHTML = html;
+                    document.getElementById('2').style.order = '2';
 
-                container.innerHTML = html;
-                document.getElementById('1').style.order = '2';
-                
+                    break;
+
+                default:
+                    jogador++;    
+                    cpu++;
+                    html += `
+                    <div id="placar">
+                        <div class="jogador">
+                            <h2>Jogador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-jogador">${jogador}</div>
+                            </div>
+                        </div>
+                        <div class="jogador">
+                            <h2>Computador</h2>
+                            <div class="animate__animated animate__zoomIn animate__delay-3s">
+                                <div class="pontos" id="pontos-computador">${cpu}</div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    for(let i=0; i<2; i++)
+                    {
+                        for(let card of cards)
+                        {
+                            if(card.titulo === "Pedra" || card.titulo === "Papel"){continue;}
+                            html += `
+                            <div id="${card.id}">
+                                <div class="animate__animated animate__zoomIn animate__delay-1s">
+                                    <div class="card-modulo">
+                                        <div class="pic-box">
+                                            <img src="${card.img}">
+                                        </div>
+                                        <h2> ${card.titulo} </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                        }
+                    }
+                    html +=`
+                    <div id="win_loose">
+                        <div class="animate__animated animate__zoomIn animate__delay-2s">
+                            <h2> EMPATE </h2>
+                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
+                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                        </div>
+                    </div>
+                    `;
+                    container.innerHTML = html;
+                    document.getElementById('3').style.order = '2';
+                    break;
             }
         }
-
-        if(clicado.id == 2){}
-
-        if(clicado.id == 3){}
     }
 });
