@@ -1,39 +1,51 @@
-import { cards } from '../src/cardspo.js';
+import { cards } from './cardspo.js';
 
-//localStorage.setItem('pontos_cpu', cpu);
-//localStorage.setItem('pontos_player', player);
-//console.log(localStorage.getItem('pontos_player'));
-//console.log(localStorage.getItem('pontos_cpu'));
+/* <------------ Criaçao de divs e buttons ------------> */ 
+const container = document.querySelector('.container');
+const splash_div = document.createElement("div"); 
+const btn_new_game = document.createElement("button");
+const btn_score = document.createElement("button");
+const joken_div = document.createElement("div");
+const joken_result = document.getElementById("joken_result");
+
+/* <------------ Criaçao de divs e buttons ------------> */ 
+
+
+/* <------------ contadores placar ------------> */ 
+let cpu = 0;
+let jogador = 0;
+/* <------------ contadores placar ------------> */ 
+
+document.addEventListener("DOMContentLoaded", splashScreen);
+
+btn_new_game.addEventListener('click',listaCards);
+
+joken_div.addEventListener('click', playerWinOrLose);
+
+document.getElementById('joken_result').addEventListener('click', newGameOrQuit);
+
 
 /* <------------ começo tela splash ------------> */ 
 
-/* <------------ Criaçao de divs e buttons ------------> */ 
-const splash_div = document.createElement("div"); 
-const btn_newGame = document.createElement("button");
-const btn_replay_game = document.createElement("button"); //criar botão para jogar novamente
-const btn_score = document.createElement("button");
-const joken_div = document.createElement("div");
-
-/* <------------ Criaçao de divs e buttons ------------> */ 
-
-
 /* <------------ Animação font e buttons ------------> */ 
-document.addEventListener("DOMContentLoaded", () => {
+
+function splashScreen()
+{
     joken_div.id = "joken_cards";
     splash_div.id = "splashGame";
-    btn_newGame.id = "new_game";
+    btn_new_game.id = "new_game";
     btn_score.id = "score";
-    btn_newGame.className = "animate__animated animate__fadeInUp animate__delay-3s";
+    btn_new_game.className = "animate__animated animate__fadeInUp animate__delay-3s";
     btn_score.className = "animate__animated animate__fadeInUp animate__delay-4s";
    
 
-    btn_newGame.textContent = "Start Game";
+    btn_new_game.textContent = "Start Game";
     btn_score.textContent = "Score";
 
-    document.body.appendChild(splash_div);
-    document.body.appendChild(btn_newGame);
-    document.body.appendChild(btn_score);
-    document.body.appendChild(joken_div);
+    container.appendChild(splash_div);
+    container.appendChild(btn_new_game);
+    container.appendChild(btn_score);
+    container.appendChild(joken_div);
     
     splash_div.innerHTML = `
         <div id="jo"> 
@@ -54,13 +66,15 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
     `;
-});
+}
 /* <------------ Animação font e buttons ------------> */ 
 
+/* <------------ Fim tela splash ------------> */ 
 
-btn_newGame.addEventListener('click', function(){
 
-     for(let card of cards)
+function listaCards()
+{
+    for(let card of cards)
     {
         joken_div.innerHTML += `
         <div id="${card.id}">
@@ -76,37 +90,24 @@ btn_newGame.addEventListener('click', function(){
         `;
     }
 
-    document.getElementById('joken_cards').style.display = 'flex';
-    document.getElementById('joken_cards').style.justifyContent = 'space-evenly';
-    document.getElementById('joken_result').style.display = 'none';
-    document.getElementById('splashGame').style.display = 'none';
-    btn_newGame.style.display = 'none'; //resolver problema do addventlistener
+    btn_new_game.style.display = 'none';
     btn_score.style.display = 'none';
-
-});
-
-/* <------------ Fim tela splash ------------> */ 
-
-
-/* <------------ contadores placar ------------> */ 
-let cpu = 0;
-let jogador = 0;
-/* <------------ contadores placar ------------> */ 
+    joken_div.style.display = 'flex';
+    joken_result.style.display = 'none';
+    splash_div.style.display = 'none';
+}
 
 
-joken_div.addEventListener('click', function (event) {
-    
+function playerWinOrLose(event)
+{
     const clicado = event.target.closest('div[id]');
     let n_card = Math.floor(Math.random() * 3) + 1;
-
+    let html = "";
   
-    if (clicado && clicado.id && clicado.id !== 'joken_div') //mudar nome container
+    if (clicado && clicado.id && clicado.id !== 'joken_div')
     {
-        const container = document.getElementById("joken_result");
-        let html = "";
-        document.getElementById('joken_result').style.display = 'flex';
-        document.getElementById('joken_result').style.paddingTop = '10%';
-        document.getElementById('joken_cards').style.display = 'none';
+        joken_result.style.display = 'flex';
+        joken_div.style.display = 'none';
 
         if(clicado.id == 1)
         {
@@ -157,12 +158,12 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> EMPATE! </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                            <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>    
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('1').style.order = '2';
                     break;
 
@@ -205,12 +206,12 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> VOCÊ PERDEU! </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                            <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>    
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('2').style.order = '2';
 
                     break;
@@ -256,12 +257,12 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> VOCÊ VENCEU! </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                            <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>    
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('3').style.order = '2';
                     break;
 
@@ -273,7 +274,7 @@ joken_div.addEventListener('click', function (event) {
             switch(n_card)
             {
                 case 1:
-                    //alert('você venceu');
+                    
                     jogador++;
                     
                     html += `
@@ -313,12 +314,12 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> VOCÊ VENCEU </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                            <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>    
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('1').style.order = '2';
                     break;
                     
@@ -366,12 +367,12 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> EMPATE </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                            <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>    
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('2').style.order = '2';
                     break;
 
@@ -414,12 +415,12 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> VOCÊ PERDEU </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                             <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>    
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('3').style.order = '2';
                     break;
             }
@@ -468,12 +469,12 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> VOCÊ PERDEU </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                             <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>  
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('1').style.order = '2';
                     break;
 
@@ -516,12 +517,12 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> VOCÊ VENCEU </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                             <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>  
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('2').style.order = '2';
 
                     break;
@@ -569,15 +570,31 @@ joken_div.addEventListener('click', function (event) {
                     <div id="win_loose">
                         <div class="animate__animated animate__zoomIn animate__delay-2s">
                             <h2> EMPATE </h2>
-                            <button id="new_game" type="button" onclick="newGame()"> Jogar novamente </button>
-                            <button id="quit" type="button" onclick="quitGame()"> Quit Game </button>  
+                            <button id="new_game" type="button"> Jogar novamente </button>
+                            <button id="quit" type="button"> Quit Game </button>  
                         </div>
                     </div>
                     `;
-                    container.innerHTML = html;
+                    joken_result.innerHTML = html;
                     document.getElementById('3').style.order = '2';
                     break;
             }
         }
     }
-});
+}
+
+
+function newGameOrQuit(event)
+{
+    if (event.target && event.target.id === 'new_game') 
+    {
+        joken_result.style.display = 'none';
+        joken_div.style.display = 'flex';
+    }
+    else if(event.target && event.target.id === 'quit')
+    {
+        location.reload();
+    }
+}
+
+
