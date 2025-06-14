@@ -1,4 +1,5 @@
 import { cards } from './cardspo.js';
+import { score } from './score.js';
 
 /* <------------ Criaçao de divs e buttons ------------> */ 
 const container = document.querySelector('.container');
@@ -12,6 +13,7 @@ const joken_result = document.getElementById("joken_result");
 
 
 /* <------------ contadores placar ------------> */ 
+let namePlayer;
 let cpu = 0;
 let jogador = 0;
 /* <------------ contadores placar ------------> */ 
@@ -19,6 +21,8 @@ let jogador = 0;
 document.addEventListener("DOMContentLoaded", splashScreen);
 
 btn_new_game.addEventListener('click',listaCards);
+
+btn_score.addEventListener('click', function (){window.location = 'score.html';});
 
 joken_div.addEventListener('click', playerWinOrLose);
 
@@ -73,7 +77,8 @@ function splashScreen()
 
 
 function listaCards()
-{
+{   
+    namePlayer = prompt('nome do jogador');
     for(let card of cards)
     {
         joken_div.innerHTML += `
@@ -98,6 +103,68 @@ function listaCards()
 }
 
 
+function placarJoken(jogador,cpu)
+{
+    return `
+    <div id="placar">
+      <div class="jogador">
+        <h2>Jogador</h2>
+        <div class="animate__animated animate__zoomIn animate__delay-3s">
+          <div class="pontos" id="pontos-jogador">${jogador}</div>
+        </div>
+      </div>
+      <div class="jogador">
+        <h2>Computador</h2>
+        <div class="animate__animated animate__zoomIn animate__delay-3s">
+          <div class="pontos" id="pontos-computador">${cpu}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+
+function VitoriaDerrota(victory,defeat)
+{
+    if(victory === true)
+    {
+        return `
+        <div id="win_loose">
+            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                <h2> VOCÊ VENCEU </h2>
+                <button id="new_game" type="button"> Jogar novamente </button>
+                <button id="quit" type="button"> Quit Game </button>    
+            </div>
+        </div>
+        `;
+    }
+    else if(defeat === true)
+    {
+        return `
+        <div id="win_loose">
+            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                <h2> VOCÊ PERDEU </h2>
+                <button id="new_game" type="button"> Jogar novamente </button>
+                <button id="quit" type="button"> Quit Game </button>    
+            </div>
+        </div>
+        `;
+    }
+    else 
+    {
+        return `
+        <div id="win_loose">
+            <div class="animate__animated animate__zoomIn animate__delay-2s">
+                <h2> EMPATE </h2>
+                <button id="new_game" type="button"> Jogar novamente </button>
+                <button id="quit" type="button"> Quit Game </button>    
+            </div>
+        </div>
+        `;
+    }
+}
+
+
 function playerWinOrLose(event)
 {
     const clicado = event.target.closest('div[id]');
@@ -116,23 +183,7 @@ function playerWinOrLose(event)
                 case 1:
                     jogador++;
                     cpu++;
-
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador, cpu)
 
                     for(let i=0; i<2; i++) //contador loop para duplicar os cards de empate
                     {
@@ -154,37 +205,14 @@ function playerWinOrLose(event)
                             `;
                         }
                     }
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> EMPATE! </h2>
-                            <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>    
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(false,false)
                     joken_result.innerHTML = html;
                     document.getElementById('1').style.order = '2';
                     break;
 
                 case 2:
                     cpu++;
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador,cpu)
 
                     for(let card of cards)
                     {
@@ -202,15 +230,7 @@ function playerWinOrLose(event)
                         </div>
                         `;
                     }
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> VOCÊ PERDEU! </h2>
-                            <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>    
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(false,true)
                     joken_result.innerHTML = html;
                     document.getElementById('2').style.order = '2';
 
@@ -219,22 +239,7 @@ function playerWinOrLose(event)
                 default:
                     jogador++;
 
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador,cpu);
 
                     for(let card of cards)
                     {
@@ -253,15 +258,7 @@ function playerWinOrLose(event)
                         `;
                     }
 
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> VOCÊ VENCEU! </h2>
-                            <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>    
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(true,false);
                     joken_result.innerHTML = html;
                     document.getElementById('3').style.order = '2';
                     break;
@@ -276,23 +273,7 @@ function playerWinOrLose(event)
                 case 1:
                     
                     jogador++;
-                    
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador,cpu);
 
                     for(let card of cards)
                     {
@@ -310,15 +291,7 @@ function playerWinOrLose(event)
                         </div>
                         `;
                     }
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> VOCÊ VENCEU </h2>
-                            <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>    
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(true,false)
                     joken_result.innerHTML = html;
                     document.getElementById('1').style.order = '2';
                     break;
@@ -326,22 +299,7 @@ function playerWinOrLose(event)
                 case 2:
                     jogador++;
                     cpu++;
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador,cpu);
 
                     for(let i=0; i<2; i++)
                     {
@@ -363,37 +321,14 @@ function playerWinOrLose(event)
                         }
                     }
                     
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> EMPATE </h2>
-                            <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>    
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(false,false);
                     joken_result.innerHTML = html;
                     document.getElementById('2').style.order = '2';
                     break;
 
                 default: 
                     cpu++;    
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador,cpu);
 
                     for(let card of cards)
                     {
@@ -411,15 +346,7 @@ function playerWinOrLose(event)
                         </div>
                         `;
                     }
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> VOCÊ PERDEU </h2>
-                             <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>    
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(false,true);
                     joken_result.innerHTML = html;
                     document.getElementById('3').style.order = '2';
                     break;
@@ -432,22 +359,7 @@ function playerWinOrLose(event)
             {
                 case 1:
                     cpu++;    
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador,cpu);
 
                     for(let card of cards)
                     {
@@ -465,37 +377,14 @@ function playerWinOrLose(event)
                         </div>
                         `;
                     }
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> VOCÊ PERDEU </h2>
-                             <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>  
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(false,true);
                     joken_result.innerHTML = html;
                     document.getElementById('1').style.order = '2';
                     break;
 
                 case 2:
                     jogador++;    
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador,cpu);
 
                     for(let card of cards)
                     {
@@ -513,15 +402,7 @@ function playerWinOrLose(event)
                         </div>
                         `;
                     }
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> VOCÊ VENCEU </h2>
-                             <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>  
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(true,false);
                     joken_result.innerHTML = html;
                     document.getElementById('2').style.order = '2';
 
@@ -530,22 +411,7 @@ function playerWinOrLose(event)
                 default:
                     jogador++;    
                     cpu++;
-                    html += `
-                    <div id="placar">
-                        <div class="jogador">
-                            <h2>Jogador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-jogador">${jogador}</div>
-                            </div>
-                        </div>
-                        <div class="jogador">
-                            <h2>Computador</h2>
-                            <div class="animate__animated animate__zoomIn animate__delay-3s">
-                                <div class="pontos" id="pontos-computador">${cpu}</div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
+                    html = placarJoken(jogador,cpu);
 
                     for(let i=0; i<2; i++)
                     {
@@ -566,15 +432,7 @@ function playerWinOrLose(event)
                             `;
                         }
                     }
-                    html +=`
-                    <div id="win_loose">
-                        <div class="animate__animated animate__zoomIn animate__delay-2s">
-                            <h2> EMPATE </h2>
-                            <button id="new_game" type="button"> Jogar novamente </button>
-                            <button id="quit" type="button"> Quit Game </button>  
-                        </div>
-                    </div>
-                    `;
+                    html += VitoriaDerrota(false,false);
                     joken_result.innerHTML = html;
                     document.getElementById('3').style.order = '2';
                     break;
@@ -583,6 +441,21 @@ function playerWinOrLose(event)
     }
 }
 
+
+function atualizarRanking(nomeDoJogador,scoreAtual, ranking) {
+
+    const novoRanking = [...ranking];
+
+    for (let i = 0; i < novoRanking.length; i++) {
+        if (scoreAtual > novoRanking[i].score) {
+            novoRanking.splice(i, 0, { nome: nomeDoJogador, score: scoreAtual });
+            novoRanking.pop();
+            break;
+        }
+    }
+
+    return novoRanking;
+}
 
 function newGameOrQuit(event)
 {
@@ -593,6 +466,7 @@ function newGameOrQuit(event)
     }
     else if(event.target && event.target.id === 'quit')
     {
+        localStorage.setItem("ranking", JSON.stringify(atualizarRanking(namePlayer, jogador, score)));
         location.reload();
     }
 }

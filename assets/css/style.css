@@ -124,10 +124,7 @@ button
     cursor: pointer;
 }
   
-button:hover 
-{
-background-color: #2D3436;
-}
+button:hover {background-color: #2D3436;}
 
 #new_game, 
 #score,
@@ -154,22 +151,11 @@ background-color: #2D3436;
     padding-bottom: 2%;
 }
 
-#joken_cards
-{
-    display: none;
-    gap: 40px;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
+#joken_cards,
 #joken_result
 {
     display: none;
-    padding-top: 10%;
-    gap: 40px;
+    gap: 70px;
     margin: 0;
     position: absolute;
     top: 50%;
@@ -177,20 +163,9 @@ background-color: #2D3436;
     transform: translate(-50%, -50%);
 }
 
-/*
-.joken
-{
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-}
+#joken_result{top: 40%;}
 
-.joken.active
-{
-    opacity: 1;
-    pointer-events: auto;
-}
-    */
+#joken_result{padding-top: 10%;}
 
 .card-modulo
 {
@@ -203,10 +178,7 @@ background-color: #2D3436;
     margin-top: 15%;
 }
 
-.pic-box img
-{
-    width: 100%;
-}
+.pic-box img{width: 100%;}
 
 img:hover
 {
@@ -236,10 +208,7 @@ img:hover
     padding: 5%;
 }
 
-#win_loose h2
-{
-  margin-bottom: 4%;
-}
+#win_loose h2{margin-bottom: 4%;}
 
 #placar 
 {
@@ -258,10 +227,7 @@ img:hover
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
   
-.jogador 
-{
-    text-align: center;
-}
+.jogador{text-align: center;}
   
 .jogador h2 
 {

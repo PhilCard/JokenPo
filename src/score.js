@@ -1,8 +1,6 @@
-//localStorage.setItem('pontos_cpu', cpu);
-//localStorage.setItem('pontos_player', player);
-//console.log(localStorage.getItem('pontos_player'));
-//console.log(localStorage.getItem('pontos_cpu'));
+export let score = [];
 
-export let players_score = [
-    {}
-];
+window.onload = function()
+{
+   //console.log(localStorage.getItem('ranking'));
+}
