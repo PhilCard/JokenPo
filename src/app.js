@@ -454,7 +454,13 @@ function atualizarRanking(nomeDoJogador,scoreAtual, ranking) {
         if (scoreAtual > novoRanking[i].score) {
             novoRanking.splice(i, 0, { nome: nomeDoJogador, score: scoreAtual });
             novoRanking.pop();
+            alert('parabéns! alcançou uma posição no ranking');
+            window.location = 'score.html';
             break;
+        }
+        else
+        {
+            location.reload();
         }
     }
 
@@ -471,7 +477,6 @@ function newGameOrQuit(event)
     else if(event.target && event.target.id === 'quit')
     {
         localStorage.setItem("ranking", JSON.stringify(atualizarRanking(namePlayer, jogador, score)));
-        location.reload();
     }
 }
 
