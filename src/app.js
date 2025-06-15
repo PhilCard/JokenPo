@@ -1,5 +1,4 @@
 import { cards } from './cardspo.js';
-import { score } from './score.js';
 
 /* <------------ Criaçao de divs e buttons ------------> */ 
 const container = document.querySelector('.container');
@@ -13,6 +12,11 @@ const joken_result = document.getElementById("joken_result");
 
 
 /* <------------ contadores placar ------------> */ 
+let score = [
+    {nome : 'user', score : 3},
+    {nome : 'user', score : 2},
+    {nome : 'user', score : 1}
+];
 let namePlayer;
 let cpu = 0;
 let jogador = 0;

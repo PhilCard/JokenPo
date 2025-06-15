@@ -2,14 +2,13 @@
 
 Um jogo clássico de Jokenpô (Pedra, Papel e Tesoura) feito com HTML, CSS e JavaScript. O jogador desafia a CPU e acompanha o placar em tempo real.
 
+> ✅ **Sistema de score implementado com sucesso** 🏁 **Projeto finalizado por enquanto**
+
 ## 🚀 Demonstração
 
-➡️ Acesse o jogo online: https://philcard.github.io/JokenPo/
+➡️ Acesse o jogo online: [https://philcard.github.io/JokenPo/](https://philcard.github.io/JokenPo/)
 
 ## 📸 Imagens
-<div align="start">
-  <img src="assets/img/jokenpo.gif" alt="joken_gif">
-</div>
 
 ---
 
@@ -33,12 +32,12 @@ Um jogo clássico de Jokenpô (Pedra, Papel e Tesoura) feito com HTML, CSS e Jav
 
 ---
 
-## 📦 Futuras Implementações
+## 📦 Funcionalidades Concluídas
 
 - ✅ Tela splash animada
 - ✅ Interface com botões e cartas
 - ✅ Sistema de placar
-- 🔜 **Sistema de score persistente**, que armazena os pontos entre rodadas (em localStorage ou backend)
+- ✅ Sistema de score persistente (armazenado com `localStorage`)
 
 ---
 
