@@ -1,4 +1,4 @@
-import { cards } from './cardspo.js';
+import { cards } from './cardspo.js'; //REFATORAR CODIGO, RENOMEAR VARIAVEIS E CLASSES EM INGLES, MUDAR document.getelementById pela constante atribuida .... usar classlist nos styles.display = none;
 
 /* <------------ Criaçao de divs e buttons ------------> */ 
 const container = document.querySelector('.container');
@@ -74,7 +74,7 @@ function splashScreen()
             </div>
         </div>
     `;
-}
+} //usar append
 /* <------------ Animação font e buttons ------------> */ 
 
 /* <------------ Fim tela splash ------------> */ 
@@ -99,7 +99,7 @@ function listaCards()
         `;
     }
 
-    btn_new_game.style.display = 'none';
+    btn_new_game.style.display = 'none'; //usar classlist
     btn_score.style.display = 'none';
     joken_div.style.display = 'flex';
     joken_result.style.display = 'none';

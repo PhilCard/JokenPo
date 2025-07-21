@@ -100,124 +100,25 @@ body
 }
 /* background animated fim */
 
-h1
-{
-    color: #fff;
-    font-size: 100px;
-    font-weight: 600;
-    font-optical-sizing: auto;
-    font-style: normal;
-    text-align: center;
+h1{color: #fff;}
+
+.card{
+cursor: pointer;
+max-width: 250px;
 }
 
+img{width: 100%;}
 
-button 
-{
-    margin-bottom: 2%;
-    background: rgb(0, 0, 0, 0.6);
-    width: 200px;
-    height: 80px;
-    color: #fff;
-    font-size: 1.375em;
-    text-decoration: none;
-    border: 1px solid gray;
+.card:hover {
+    transition: 0.3s;
     cursor: pointer;
-}
-  
-button:hover {background-color: #2D3436;}
-
-#new_game, 
-#score,
-#quit,
-#btn_voltar
-{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    transform: translateY(-10px);
 }
 
-  
-#splashGame
+button{height: 80px;}
+
+.placar 
 {
-    display: flex; 
-    justify-content: center;
-}
-
-.container
-{
-    max-width: 1200px; /*Largura maxima do conteudo do site*/
-    width: 100%;
-	margin: 0 auto;
-    margin-top: 3%;
-    padding-bottom: 2%;
-}
-
-#joken_cards,
-#joken_result
-{
-    display: none;
-    gap: 70px;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#joken_result{top: 40%;}
-
-#joken_result{padding-top: 10%;}
-
-.card-modulo
-{
-    background-color: #2D3436;
-    box-shadow: 0 5px 10px #3337;
-    border-radius: 5px;
-    height: 300px;
-    width: 249px;
-    margin-left: 3%;
-    margin-top: 15%;
-}
-
-.pic-box img{width: 100%;}
-
-img:hover
-{
-    scale : 1.1;
-    cursor: pointer;
-}
-
-.card-modulo h2
-{
-    color: #fff;
-    text-align: center;
-    padding-top: 2%;
-}
-
-.conteudo-box-result
-{
-    display: flex;
-    justify-content: center;
-}
-
-
-#win_loose
-{
-    color: white;
-    display : block;
-    text-align: center;
-    padding: 5%;
-}
-
-#win_loose h2{margin-bottom: 4%;}
-
-#placar 
-{
-    position: absolute;
-    top: 5px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     background-color: #222;
     color: #fff;
     padding: 20px;
@@ -226,15 +127,12 @@ img:hover
     margin: 20px auto;
     font-family: 'Arial', sans-serif;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-.jogador{text-align: center;}
+}
   
 .jogador h2 
 {
     font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #04619F;
+    color: #ffcc00;
 }
   
 .pontos 
@@ -242,15 +140,6 @@ img:hover
     font-size: 2.5em;
     font-weight: bold;
 }
-
-#score_joken
-{
-    margin-top: 10%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-}
-
 
 .ranking-table 
 {
