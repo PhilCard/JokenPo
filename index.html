@@ -24,116 +24,94 @@
             <span></span>
         </div>
 
-        <!--<div class="container">
+        <div id="home" class="container">
 
             <div class="d-flex justify-content-center mt-5 pt-5">
-                <div id="jo"> 
+                <div> 
                     <div class="animate__animated animate__fadeInDown">
-                        <h1 class="display-1 font-weight-bold"> Jo </h1>
+                        <h1 class="display-1 fw-bolder"> Jo </h1>
                     </div>
                 </div>
         
-                <div id="ken"> 
+                <div> 
                     <div class="animate__animated animate__fadeInDown animate__delay-1s">
-                        <h1 class="display-1 font-weight-bold"> ken </h1> 
+                        <h1 class="display-1 fw-bolder"> ken </h1> 
                     </div>
                 </div>
                 
-                <div id="po">
+                <div>
                     <div class="animate__animated animate__fadeInDown animate__delay-2s">
-                        <h1 class="display-1 font-weight-bold"> Pô </h1>
+                        <h1 class="display-1 fw-bolder"> Pô </h1>
                     </div>
                 </div>
             </div>
 
-            <div class="d-block mx-auto mt-5" style="width: 200px;">
-                <button class="btn btn-lg btn-dark w-100"> Start Game</button>
-            </div>
+            <div class="animate__animated animate__fadeIn animate__delay-3s">
+                <div class="d-block mx-auto mt-5" style="width: 200px;">
+                    <button id="new_game" class="btn btn-lg btn-dark w-100"> Start Game</button>
+                </div>
 
-             <div class="d-block mx-auto mt-4" style="width: 200px;">
-                <button class="btn btn-lg btn-dark w-100"> Score</button>
-            </div>
-
-
-            <div class="btn-group-vertical">
-                <button class="btn btn-danger" type="button">Topo</button>
-                <button class="btn btn-danger" type="button">Meio</button>
-                <button class="btn btn-danger" type="button">Fundo</button>
+                <div class="d-block mx-auto mt-4" style="width: 200px;">
+                    <button id="score" class="btn btn-lg btn-dark w-100"> Score</button>
+                </div>
             </div>
             
-        </div>-->
+        </div>
 
-        <!--<div class="container">
+        <div id="game" class="container">
 
-            <div class="d-flex justify-content-around align-items-center" style="min-height: 600px;">
-
-                <div data-id="card-01" class="card bg-dark">
-                    <div class="card-body">
-                        <img src="assets/img/icons/fist.png" class="rounded"/>
-                        <h4 class="card-title text-center text-light">Pedra</h4>
+            <div class="game d-flex justify-content-around align-items-center" style="min-height: 600px;"> <!--realizar foreach-->
+                <div class="animate__animated animate__fadeIn">
+                    <div data-id="card-01" class="card bg-dark">
+                        <div class="card-body">
+                            <img src="assets/img/icons/fist.png" class="rounded"/>
+                            <h4 class="card-title text-center text-light">Pedra</h4>
+                        </div>
                     </div>
                 </div>
 
-                 <div data-id="card-02" class="card bg-dark">
-                    <div class="card-body">
-                        <img src="assets/img/icons/hand-paper.png" class="rounded"/>
-                        <h4 class="card-title text-center text-light">Papel</h4>
+                <div class="animate__animated animate__fadeIn animate__delay-1s">
+                    <div data-id="card-02" class="card bg-dark">
+                        <div class="card-body">
+                            <img src="assets/img/icons/hand-paper.png" class="rounded"/>
+                            <h4 class="card-title text-center text-light">Papel</h4>
+                        </div>
                     </div>
                 </div>
 
-                <div data-id="card-03" class="card bg-dark">
-                    <div class="card-body">
-                        <img src="assets/img/icons/scissors.png" class="rounded"/>
-                        <h4 class="card-title text-center text-light">Tesoura</h4>
+                <div class="animate__animated animate__fadeIn animate__delay-2s">
+                    <div data-id="card-03" class="card bg-dark">
+                        <div class="card-body">
+                            <img src="assets/img/icons/scissors.png" class="rounded"/>
+                            <h4 class="card-title text-center text-light">Tesoura</h4>
+                        </div>
                     </div>
                 </div>
 
             </div>
-        </div>-->
+        </div>
+        
+       <div id="result" class="container">
 
-        <div class="container">
-
-             <div class="placar d-flex justify-content-around"> <!-- usar array card aqui para exibir dados via innerhtml-->
+             <div class="placar d-flex justify-content-around"> 
                 <div class="jogador">
                     <h2 class="mb-3">Jogador</h2>
-                    <div class="animate__animated animate__zoomIn animate__delay-3s">
-                    <div class="pontos text-center" id="pontos-jogador">0</div> <!-- usar text content-->
+                    <div class="animate__animated animate__zoomIn animate__delay-1s">
+                    <div class="pontos text-center" id="pts_jogador">0</div> 
                     </div>
                 </div>
                 <div class="jogador">
                     <h2 class="mb-3">Computador</h2>
-                    <div class="animate__animated animate__zoomIn animate__delay-3s">
-                    <div class="pontos text-center" id="pontos-computador">0</div>
+                    <div class="animate__animated animate__zoomIn animate__delay-1s">
+                    <div class="pontos text-center" id="pts_cpu">0</div>
                     </div>
                 </div>
             </div>
 
-            <div id="result_jokenpo" class="d-flex justify-content-around align-items-center">
-                <!-- innerhtml aqui-->
-                <div data-id="card-01" class="card bg-dark" style="pointer-events: none;">
-                    <div class="card-body">
-                        <img src="assets/img/icons/fist.png" class="rounded"/>
-                        <h4 class="card-title text-center text-light">Pedra</h4>
-                    </div>
-                </div>
-
-                <div class="d-block" style="width: 200px;">
-                    <button class="btn btn-lg btn-dark w-100"> Start Game</button>
-                    <button class="btn btn-lg btn-dark w-100 mt-3"> Quit Game</button>
-                </div>
-
-                 <div data-id="card-02" class="card bg-dark" style="pointer-events: none;">
-                    <div class="card-body">
-                        <img src="assets/img/icons/hand-paper.png" class="rounded"/>
-                        <h4 class="card-title text-center text-light">Papel</h4>
-                    </div>
-                </div>
-                <!-- innerhtml aqui-->
-            </div>
+            <div id="result_jokenpo" class="d-flex justify-content-evenly align-items-center"></div>
         </div>
         
         <!--fim background animado -->
-        <!--<div class="container"><div id="joken_result" class="conteudo-box-result"></div></div>-->
-        <!--<script type="module" src="src/app.js"> </script>-->
+        <script src="src/app.js"> </script>
     </body>
 </html>

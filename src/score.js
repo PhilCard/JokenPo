@@ -1,9 +1,6 @@
 const score_div = document.getElementById('score_joken');
-const btn_voltar = document.getElementById('btn_voltar');
 const ranking = JSON.parse(localStorage.getItem("ranking")) || [];
-console.log(localStorage.getItem('ranking'))
-
-btn_voltar.addEventListener('click', function(){window.location = 'index.html'});
+//console.log(localStorage.getItem('ranking'))
 
 window.addEventListener("load", () => {
 

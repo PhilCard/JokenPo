@@ -1,483 +1,132 @@
-import { cards } from './cardspo.js'; //REFATORAR CODIGO, RENOMEAR VARIAVEIS E CLASSES EM INGLES, MUDAR document.getelementById pela constante atribuida .... usar classlist nos styles.display = none;
+const cards = [
+  {id: 'card-01', img: "assets/img/icons/fist.png", titulo:"Pedra"}, //usar data-id
+  {id: 'card-02', img: "assets/img/icons/hand-paper.png", titulo:"Papel"},
+  {id: 'card-03', img: "assets/img/icons/scissors.png", titulo:"Tesoura"}
+];
 
-/* <------------ Criaçao de divs e buttons ------------> */ 
-const container = document.querySelector('.container');
-const splash_div = document.createElement("div"); 
-const btn_new_game = document.createElement("button");
-const btn_score = document.createElement("button");
-const joken_div = document.createElement("div");
-const joken_result = document.getElementById("joken_result");
-
-/* <------------ Criaçao de divs e buttons ------------> */ 
-
-
-/* <------------ contadores placar ------------> */ 
-let score = [
+const score = [
     {nome : 'user', score : 3},
     {nome : 'user', score : 2},
     {nome : 'user', score : 1}
 ];
-let namePlayer;
-let cpu = 0;
+
+const home_container = document.getElementById('home');
+const game_container = document.getElementById('game');
+const result_container = document.getElementById('result');
+const result_game = document.getElementById('result_jokenpo');
+let nome_jogador;
 let jogador = 0;
-/* <------------ contadores placar ------------> */ 
+let cpu = 0;
 
-document.addEventListener("DOMContentLoaded", splashScreen);
-
-btn_new_game.addEventListener('click',listaCards);
-
-btn_score.addEventListener('click', function (){window.location = 'score.html';});
-
-joken_div.addEventListener('click', playerWinOrLose);
-
-document.getElementById('joken_result').addEventListener('click', newGameOrQuit);
+//usar filter para filtrar cartas apos selecionar
 
 
-/* <------------ começo tela splash ------------> */ 
+document.addEventListener("DOMContentLoaded", function() {
+    result_container.style.display = 'none';
+    game_container.style.display = 'none';
+});
 
-/* <------------ Animação font e buttons ------------> */ 
+document.getElementById('new_game').addEventListener('click', function() {
+    nome_jogador = prompt('digite seu nome');
+    home_container.style.display = 'none';
+    game_container.style.display = 'block';
+});
 
-function splashScreen()
+game_container.addEventListener("click", jogadorVsCpu);
+
+
+function jogadorVsCpu(event)
 {
-    joken_div.id = "joken_cards";
-    splash_div.id = "splashGame";
-    btn_new_game.id = "new_game";
-    btn_score.id = "score";
-    btn_new_game.className = "animate__animated animate__fadeInUp animate__delay-3s";
-    btn_score.className = "animate__animated animate__fadeInUp animate__delay-4s";
-   
+    //logica para verificar se perdeu ou venceu
+    let num_cpu_sorteio = Math.floor(Math.random() * 3) + 1;
+    let card_data = event.target.closest("[data-id]");
+    let card_id = card_data.dataset.id;
+    let resultado = '';
 
-    btn_new_game.textContent = "Start Game";
-    btn_score.textContent = "Score";
-
-    container.appendChild(splash_div);
-    container.appendChild(btn_new_game);
-    container.appendChild(btn_score);
-    container.appendChild(joken_div);
-    
-    splash_div.innerHTML = `
-        <div id="jo"> 
-            <div class="animate__animated animate__fadeInDown">
-                <h1> Jo </h1> 
-            </div>
-        </div>
-        
-        <div id="ken"> 
-            <div class="animate__animated animate__fadeInDown animate__delay-1s">
-                <h1> ken </h1> 
-            </div>
-        </div>
-        
-        <div id="po">
-            <div class="animate__animated animate__fadeInDown animate__delay-2s">
-                <h1> Pô </h1>
-            </div>
-        </div>
-    `;
-} //usar append
-/* <------------ Animação font e buttons ------------> */ 
-
-/* <------------ Fim tela splash ------------> */ 
-
-
-function listaCards()
-{   
-    namePlayer = prompt('nome do jogador');
-    for(let card of cards)
+    if (card_data && game_container.contains(card_data)) 
     {
-        joken_div.innerHTML += `
-        <div id="${card.id}">
-            <div class="animate__animated animate__zoomIn">
-                <div class="card-modulo">
-                    <div class="pic-box">
-                        <img src="${card.img}">
-                    </div>
-                    <h2> ${card.titulo} </h2>
-                </div>
-            </div>
-        </div>
-        `;
+        game_container.style.display = 'none';
+        result_container.style.display = 'block';
+        //tentar melhorar lógica para diminuir if-else
+        if(card_id === 'card-01')
+        { //adicionar metodo confirm para continuar ou quitar
+            if(num_cpu_sorteio === 1)
+            {
+                //empate adicionar efeito sonoro
+                jogador++
+                cpu++;
+                placar(jogador, cpu);
+
+                for(let i=0; i<2; i++)
+                {
+                    cards
+                    .filter(card => card.titulo !== "Tesoura" && card.titulo !== "Papel")
+                    .forEach(card => {
+                        resultado += geraCardsPo(card);
+                    });
+                }
+                result_game.innerHTML = resultado;
+                //adicionar none pointer events
+            }
+            else if(num_cpu_sorteio === 2)
+            {
+                alert('você perdeu')
+                cpu++;
+                placar(jogador, cpu);
+
+                cards
+                .filter(card => card.titulo !== "Tesoura")
+                .forEach(card => {
+                    resultado += geraCardsPo(card)
+                });
+                result_game.innerHTML = resultado;
+            }   
+            else 
+            {   
+                alert('você ganhou');
+                jogador++;
+                placar(jogador, cpu);
+
+                cards
+                .filter(card => card.titulo !== "Papel")
+                .forEach(card => {
+                    resultado += geraCardsPo(card);
+                });
+                result_game.innerHTML = resultado;
+            }
+        }
+
     }
 
-    btn_new_game.style.display = 'none'; //usar classlist
-    btn_score.style.display = 'none';
-    joken_div.style.display = 'flex';
-    joken_result.style.display = 'none';
-    splash_div.style.display = 'none';
+    //tentar colocar venceu - perdeu dentro de um objeto
+    
 }
 
 
-function placarJoken(jogador,cpu)
+
+function placar(pt_jogador, pt_cpu) 
+{
+    document.getElementById('pts_jogador').textContent = pt_jogador;
+    document.getElementById('pts_cpu').textContent = pt_cpu;
+}
+
+
+function geraCardsPo(cardspo)
 {
     return `
-    <div id="placar">
-      <div class="jogador">
-        <h2>Jogador</h2>
-        <div class="animate__animated animate__zoomIn animate__delay-3s">
-          <div class="pontos" id="pontos-jogador">${jogador}</div>
-        </div>
-      </div>
-      <div class="jogador">
-        <h2>Computador</h2>
-        <div class="animate__animated animate__zoomIn animate__delay-3s">
-          <div class="pontos" id="pontos-computador">${cpu}</div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-
-function VitoriaDerrota(victory,defeat)
-{
-    if(victory === true)
-    {
-        return `
-        <div id="win_loose">
-            <div class="animate__animated animate__zoomIn animate__delay-2s">
-                <h2> VOCÊ VENCEU </h2>
-                <button id="new_game" type="button"> Jogar novamente </button>
-                <button id="quit" type="button"> Quit Game </button>    
+    <div class="animate__animated animate__fadeIn">
+        <div data-id="${cardspo.id}" class="card bg-dark">
+            <div class="card-body">
+                <img src="${cardspo.img}" class="rounded"/>
+                <h4 class="card-title text-center text-light">${cardspo.titulo}</h4>
             </div>
         </div>
-        `;
-    }
-    else if(defeat === true)
-    {
-        return `
-        <div id="win_loose">
-            <div class="animate__animated animate__zoomIn animate__delay-2s">
-                <h2> VOCÊ PERDEU </h2>
-                <button id="new_game" type="button"> Jogar novamente </button>
-                <button id="quit" type="button"> Quit Game </button>    
-            </div>
-        </div>
-        `;
-    }
-    else 
-    {
-        return `
-        <div id="win_loose">
-            <div class="animate__animated animate__zoomIn animate__delay-2s">
-                <h2> EMPATE </h2>
-                <button id="new_game" type="button"> Jogar novamente </button>
-                <button id="quit" type="button"> Quit Game </button>    
-            </div>
-        </div>
-        `;
-    }
+    </div>`
 }
 
 
-function playerWinOrLose(event)
+function scoreGame()
 {
-    const clicado = event.target.closest('div[id]');
-    let n_card = Math.floor(Math.random() * 3) + 1;
-    let html = "";
-  
-    if (clicado && clicado.id && clicado.id !== 'joken_div')
-    {
-        joken_result.style.display = 'flex';
-        joken_div.style.display = 'none';
 
-        if(clicado.id == 1)
-        {
-            switch(n_card)
-            {
-                case 1:
-                    jogador++;
-                    cpu++;
-                    html = placarJoken(jogador, cpu)
-
-                    for(let i=0; i<2; i++) //contador loop para duplicar os cards de empate
-                    {
-                        for(let card of cards) 
-                        {
-                            if(card.titulo === "Tesoura" || card.titulo === "Papel"){continue;}
-                        
-                            html += `
-                            <div id="${card.id}">
-                                <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                    <div class="card-modulo">
-                                        <div class="pic-box">
-                                            <img src="${card.img}">
-                                        </div>
-                                        <h2> ${card.titulo} </h2>
-                                    </div>
-                                </div>
-                            </div>
-                            `;
-                        }
-                    }
-                    html += VitoriaDerrota(false,false)
-                    joken_result.innerHTML = html;
-                    document.getElementById('1').style.order = '2';
-                    break;
-
-                case 2:
-                    cpu++;
-                    html = placarJoken(jogador,cpu)
-
-                    for(let card of cards)
-                    {
-                        if(card.titulo === "Tesoura"){continue;}
-                        html += `
-                        <div id="${card.id}">
-                            <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                <div class="card-modulo">
-                                    <div class="pic-box">
-                                        <img src="${card.img}">
-                                    </div>
-                                    <h2> ${card.titulo} </h2>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                    }
-                    html += VitoriaDerrota(false,true)
-                    joken_result.innerHTML = html;
-                    document.getElementById('2').style.order = '2';
-
-                    break;
-
-                default:
-                    jogador++;
-
-                    html = placarJoken(jogador,cpu);
-
-                    for(let card of cards)
-                    {
-                        if(card.titulo === "Papel"){continue;}
-                        html += `
-                        <div id="${card.id}">
-                            <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                <div class="card-modulo">
-                                    <div class="pic-box">
-                                        <img src="${card.img}">
-                                    </div>
-                                    <h2> ${card.titulo} </h2>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                    }
-
-                    html += VitoriaDerrota(true,false);
-                    joken_result.innerHTML = html;
-                    document.getElementById('3').style.order = '2';
-                    break;
-
-            }
-        }
-
-        if(clicado.id == 2)
-        {
-            switch(n_card)
-            {
-                case 1:
-                    
-                    jogador++;
-                    html = placarJoken(jogador,cpu);
-
-                    for(let card of cards)
-                    {
-                        if(card.titulo === "Tesoura"){continue;}
-                        html += `
-                        <div id="${card.id}">
-                            <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                <div class="card-modulo">
-                                    <div class="pic-box">
-                                        <img src="${card.img}">
-                                    </div>
-                                    <h2> ${card.titulo} </h2>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                    }
-                    html += VitoriaDerrota(true,false)
-                    joken_result.innerHTML = html;
-                    document.getElementById('1').style.order = '2';
-                    break;
-                    
-                case 2:
-                    jogador++;
-                    cpu++;
-                    html = placarJoken(jogador,cpu);
-
-                    for(let i=0; i<2; i++)
-                    {
-                        for(let card of cards)
-                        {   
-                            if(card.titulo === "Pedra" || card.titulo === "Tesoura"){continue;}
-                            html += `
-                            <div id="${card.id}">
-                                <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                    <div class="card-modulo">
-                                        <div class="pic-box">
-                                            <img src="${card.img}">
-                                        </div>
-                                        <h2> ${card.titulo} </h2>
-                                    </div>
-                                </div>
-                            </div>
-                            `;
-                        }
-                    }
-                    
-                    html += VitoriaDerrota(false,false);
-                    joken_result.innerHTML = html;
-                    document.getElementById('2').style.order = '2';
-                    break;
-
-                default: 
-                    cpu++;    
-                    html = placarJoken(jogador,cpu);
-
-                    for(let card of cards)
-                    {
-                        if(card.titulo === "Pedra"){continue;}
-                        html += `
-                        <div id="${card.id}">
-                            <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                <div class="card-modulo">
-                                    <div class="pic-box">
-                                        <img src="${card.img}">
-                                    </div>
-                                    <h2> ${card.titulo} </h2>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                    }
-                    html += VitoriaDerrota(false,true);
-                    joken_result.innerHTML = html;
-                    document.getElementById('3').style.order = '2';
-                    break;
-            }
-        }
-
-        if(clicado.id == 3)
-        {
-            switch(n_card)
-            {
-                case 1:
-                    cpu++;    
-                    html = placarJoken(jogador,cpu);
-
-                    for(let card of cards)
-                    {
-                        if(card.titulo === "Papel"){continue;}
-                        html += `
-                        <div id="${card.id}">
-                            <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                <div class="card-modulo">
-                                    <div class="pic-box">
-                                        <img src="${card.img}">
-                                    </div>
-                                    <h2> ${card.titulo} </h2>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                    }
-                    html += VitoriaDerrota(false,true);
-                    joken_result.innerHTML = html;
-                    document.getElementById('1').style.order = '2';
-                    break;
-
-                case 2:
-                    jogador++;    
-                    html = placarJoken(jogador,cpu);
-
-                    for(let card of cards)
-                    {
-                        if(card.titulo === "Pedra"){continue;}
-                        html += `
-                        <div id="${card.id}">
-                            <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                <div class="card-modulo">
-                                    <div class="pic-box">
-                                        <img src="${card.img}">
-                                    </div>
-                                    <h2> ${card.titulo} </h2>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                    }
-                    html += VitoriaDerrota(true,false);
-                    joken_result.innerHTML = html;
-                    document.getElementById('2').style.order = '2';
-
-                    break;
-
-                default:
-                    jogador++;    
-                    cpu++;
-                    html = placarJoken(jogador,cpu);
-
-                    for(let i=0; i<2; i++)
-                    {
-                        for(let card of cards)
-                        {
-                            if(card.titulo === "Pedra" || card.titulo === "Papel"){continue;}
-                            html += `
-                            <div id="${card.id}">
-                                <div class="animate__animated animate__zoomIn animate__delay-1s">
-                                    <div class="card-modulo">
-                                        <div class="pic-box">
-                                            <img src="${card.img}">
-                                        </div>
-                                        <h2> ${card.titulo} </h2>
-                                    </div>
-                                </div>
-                            </div>
-                            `;
-                        }
-                    }
-                    html += VitoriaDerrota(false,false);
-                    joken_result.innerHTML = html;
-                    document.getElementById('3').style.order = '2';
-                    break;
-            }
-        }
-    }
 }
-
-
-function atualizarRanking(nomeDoJogador,scoreAtual, ranking) {
-
-    const novoRanking = [...ranking];
-
-    for (let i = 0; i < novoRanking.length; i++) {
-        if (scoreAtual > novoRanking[i].score) {
-            novoRanking.splice(i, 0, { nome: nomeDoJogador, score: scoreAtual });
-            novoRanking.pop();
-            alert('parabéns! alcançou uma posição no ranking');
-            window.location = 'score.html';
-            break;
-        }
-        else
-        {
-            location.reload();
-        }
-    }
-
-    return novoRanking;
-}
-
-function newGameOrQuit(event)
-{
-    if (event.target && event.target.id === 'new_game') 
-    {
-        joken_result.style.display = 'none';
-        joken_div.style.display = 'flex';
-    }
-    else if(event.target && event.target.id === 'quit')
-    {
-        localStorage.setItem("ranking", JSON.stringify(atualizarRanking(namePlayer, jogador, score)));
-    }
-}
-
 
