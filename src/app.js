@@ -166,7 +166,28 @@ function geraCardsPo(cardspo)
 
 function scoreGame()
 {
+/*
+const novoRanking = [...ranking];
 
+    for (let i = 0; i < novoRanking.length; i++) {
+        if (scoreAtual > novoRanking[i].score) {
+            novoRanking.splice(i, 0, { nome: nomeDoJogador, score: scoreAtual });
+            novoRanking.pop();
+            alert('parabéns! alcançou uma posição no ranking');
+            window.location = 'score.html';
+            break;
+        }
+        else
+        {
+            location.reload();
+        }
+    }
+
+    return novoRanking;
+
+    localStorage.setItem("ranking", JSON.stringify(atualizarRanking(namePlayer, jogador, score)));
+
+    */
 }
 
 /// ------------------ ranking score ------------- //
