@@ -37,7 +37,7 @@ let cpu = 0;
 
 // ---------------------- click events ----------------- //
 
-document.addEventListener("DOMContentLoaded", function() {
+window.addEventListener('load', function () {
     result_container.style.display = 'none';
     game_container.style.display = 'none';
 });
@@ -162,7 +162,7 @@ function geraCardsPo(cardspo)
 
 
 
-/// ------------------ ranking score ------------- //
+// ------------------ ranking score ------------- //
 
 function scoreGame()
 {
@@ -190,5 +190,39 @@ const novoRanking = [...ranking];
     */
 }
 
-/// ------------------ ranking score ------------- //
+// ------------------ ranking score ------------- //
+
+window.addEventListener('load', function(){
+const score_div = document.getElementById('score_joken');
+const ranking = JSON.parse(localStorage.getItem("ranking")) || [];
+    let html = `
+    <table class="ranking-table">
+        <thead>
+            <tr>
+                <th>Posição</th>
+                <th>Nome</th>
+                <th>Pontos</th>
+            </tr>
+        </thead>
+    <tbody>
+    `;
+
+    ranking.forEach((item, index) => {
+        html += `
+        <tr>
+            <td>${index + 1}º</td>
+            <td>${item.nome}</td>
+            <td>${item.score}</td>
+        </tr>
+    `;
+    });
+
+    html += `
+        </tbody>
+    </table>
+    `;
+
+    document.getElementById("score_joken").innerHTML = html;
+})
+
 
