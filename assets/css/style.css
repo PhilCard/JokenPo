@@ -115,6 +115,8 @@ img{width: 100%;}
 
 button{height: 80px;}
 
+.botoes-div{width: 200px;}
+
 .placar 
 {
     background-color: #222;
@@ -130,7 +132,7 @@ button{height: 80px;}
 .jogador h2 
 {
     font-size: 1.2em;
-    color: #ffcc00;
+    color: #0066cc;
 }
   
 .pontos 
@@ -138,9 +140,6 @@ button{height: 80px;}
     font-size: 2.5em;
     font-weight: bold;
 }
-
-
-/*
 
 .ranking-table 
 {
@@ -173,5 +172,3 @@ button{height: 80px;}
 .ranking-table tbody tr:nth-child(even) {background-color: rgba(255, 255, 255, 0.05);}
 
 .ranking-table tbody tr:hover {background-color: rgba(0, 102, 204, 0.1);}
-
-*/

@@ -9,10 +9,9 @@ Um jogo clássico de Jokenpô (Pedra, Papel e Tesoura) feito com HTML, CSS e Jav
 ➡️ Acesse o jogo online: [https://philcard.github.io/JokenPo/](https://philcard.github.io/JokenPo/)
 
 ## 📸 Imagens
-<div align="start">Add commentMore actions
+<div align="start">
   <img src="assets/img/jokenpo_img.PNG" alt="joken_img">
 </div>
----
 
 ## 🎮 Como Funciona
 

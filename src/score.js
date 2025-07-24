@@ -1,34 +1,24 @@
-const score_div = document.getElementById('score_joken');
 const ranking = JSON.parse(localStorage.getItem("ranking")) || [];
 
-window.addEventListener('load', function(){
+const tbody = document.getElementById('ranking-body');
 
-    let html = `
-    <table class="ranking-table">
-        <thead>
-            <tr>
-                <th>Posição</th>
-                <th>Nome</th>
-                <th>Pontos</th>
-            </tr>
-        </thead>
-    <tbody>
-    `;
+(() => {
+    ranking.forEach((item, index) => {
+        const tr = document.createElement('tr');
 
-    ranking.forEach((item, index) => { //usar responseText
-        html += `
-        <tr>
-            <td>${index + 1}º</td>
-            <td>${item.nome}</td>
-            <td>${item.score}</td>
-        </tr>
-    `;
+        const tdPosicao = document.createElement('td');
+        tdPosicao.textContent = `${index + 1}º`;
+
+        const tdNome = document.createElement('td');
+        tdNome.textContent = item.nome;
+
+        const tdScore = document.createElement('td');
+        tdScore.textContent = item.score;
+
+        tr.appendChild(tdPosicao);
+        tr.appendChild(tdNome);
+        tr.appendChild(tdScore);
+
+        tbody.appendChild(tr);
     });
-
-    html += `
-        </tbody>
-    </table>
-    `;
-
-    document.getElementById("score_joken").innerHTML = html;
-})
+})();

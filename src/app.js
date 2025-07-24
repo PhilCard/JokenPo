@@ -37,10 +37,10 @@ let cpu = 0;
 
 // ---------------------- click events ----------------- //
 
-window.addEventListener('load', function () {
+(() => {
     result_container.style.display = 'none';
     game_container.style.display = 'none';
-});
+})();
 
 document.getElementById('new_game').addEventListener('click', function() {
     nome_jogador = prompt('digite seu nome');
@@ -65,6 +65,8 @@ function jogarNovamente()
     }
     else
     {
+        jogador = 0;
+        cpu = 0;
         result_container.style.display = 'none';
         game_container.style.display = 'none';
         home_container.style.display = 'block';
@@ -84,6 +86,7 @@ function jogadorVsCpu(jogadaJogador, jogadaCpu)
         acerto.play();
         jogador++;
         placar(jogador, cpu);
+        localStorage.setItem("ranking", JSON.stringify(scoreGame(nome_jogador, jogador, score)));
     }
     else if
     (
@@ -104,7 +107,6 @@ function jogadorVsCpu(jogadaJogador, jogadaCpu)
         cpu++;
         placar(jogador, cpu);
     }
-    localStorage.setItem("ranking", JSON.stringify(scoreGame(nome_jogador, jogador, score)));
 }
 
 //-------------------- game logic ---------------------//
@@ -199,9 +201,7 @@ function scoreGame(nomeDoJogador,scoreAtual, ranking)
         if (scoreAtual > novoRanking[i].score) {
             novoRanking.splice(i, 0, { nome: nomeDoJogador, score: scoreAtual });
             novoRanking.pop();
-            alert('parabéns! alcançou uma posição no ranking');
-            //window.location = 'score.html';
-            inserido = true;
+            alert('parabéns! alcançou uma nova posição no ranking');
             break;
         }
     }
@@ -209,6 +209,3 @@ function scoreGame(nomeDoJogador,scoreAtual, ranking)
 }
 
 // ------------------ ranking score ------------- //
-
-
-
