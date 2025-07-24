@@ -1,9 +1,9 @@
 //------------------- declaração de arrays e objetos --------------------//
 
 const cards = [
-  {img: "assets/img/icons/fist.png", titulo:"Pedra"}, //usar data-id
-  {img: "assets/img/icons/hand-paper.png", titulo:"Papel"},
-  {img: "assets/img/icons/scissors.png", titulo:"Tesoura"}
+  {id: 1, img: "assets/img/icons/fist.png", titulo:"Pedra"}, //usar data-id
+  {id: 2, img: "assets/img/icons/hand-paper.png", titulo:"Papel"},
+  {id: 3, img: "assets/img/icons/scissors.png", titulo:"Tesoura"}
 ];
 
  const jokenpo = {
@@ -55,6 +55,23 @@ game_container.addEventListener("click", exibeResultado);
 
 //-------------------- game logic ---------------------//
 
+function jogarNovamente()
+{
+    let restart_game_text = nome_jogador + " Deseja jogar novamente ? \n Sim para Jogar Novamente ou Cancelar para Sair.";
+    if(confirm(restart_game_text))
+    {   
+        result_container.style.display = 'none';
+        game_container.style.display = 'block';
+    }
+    else
+    {
+        result_container.style.display = 'none';
+        game_container.style.display = 'none';
+        home_container.style.display = 'block';
+    }
+}
+
+
 function jogadorVsCpu(jogadaJogador, jogadaCpu)
 {
     if
@@ -63,7 +80,8 @@ function jogadorVsCpu(jogadaJogador, jogadaCpu)
     jogadaJogador === 'Papel' && jogadaCpu === 'Pedra' ||
     jogadaJogador === 'Tesoura' && jogadaCpu === 'Papel'
     ) {
-        alert('venceu');
+        const acerto = new Audio('assets/audios_effects/current.mp3');
+        acerto.play();
         jogador++;
         placar(jogador, cpu);
     }
@@ -73,17 +91,20 @@ function jogadorVsCpu(jogadaJogador, jogadaCpu)
     jogadaCpu === 'Papel' && jogadaJogador === 'Pedra' ||
     jogadaCpu === 'Tesoura' && jogadaJogador === 'Papel'
     ) {
-        alert('perdeu')
+        const erro = new Audio('assets/audios_effects/loose.mp3');
+        erro.play();
         cpu++;
         placar(jogador, cpu);
     }
     else
     {
-        alert('empate')
+        const empate = new Audio('assets/audios_effects/empate.mp3')
+        empate.play();
         jogador++
         cpu++;
         placar(jogador, cpu);
     }
+    localStorage.setItem("ranking", JSON.stringify(scoreGame(nome_jogador, jogador, score)));
 }
 
 //-------------------- game logic ---------------------//
@@ -103,7 +124,7 @@ function exibeResultado(event)
         let id_jokenpo = card_id;
         id_jokenpo = id_jokenpo.replace('card-0','');
         game_container.style.display = 'none';
-        result_container.style.display = 'block';
+        result_container.style.display = '';
 
         jogadorVsCpu(jokenpo[id_jokenpo], jokenpo[num_cpu_sorteio]);
 
@@ -116,9 +137,8 @@ function exibeResultado(event)
                     .forEach(card => {
                         resultado += geraCardsPo(card);
                     });
-                
-                result_game.innerHTML = resultado;
             }
+            result_game.innerHTML = resultado;
         }
         else
         {
@@ -128,8 +148,16 @@ function exibeResultado(event)
                     resultado += geraCardsPo(card);
                 });
             result_game.innerHTML = resultado;
-        }
 
+            let ordem_card = document.querySelector(`[data-id="${id_jokenpo}"]`);
+            if(ordem_card)
+            {
+                ordem_card.style.order = '-1';
+            }
+        }
+        setTimeout(() => {
+            jogarNovamente();
+        }, 4000);
     }
 }
 
@@ -149,8 +177,8 @@ function placar(pt_jogador, pt_cpu)
 function geraCardsPo(cardspo)
 {
     return `
-    <div class="animate__animated animate__fadeIn">
-        <div data-id="${cardspo.id}" class="card bg-dark">
+    <div data-id="${cardspo.id}" class="animate__animated animate__fadeIn">
+        <div class="card bg-dark">
             <div class="card-body">
                 <img src="${cardspo.img}" class="rounded"/>
                 <h4 class="card-title text-center text-light">${cardspo.titulo}</h4>
@@ -161,68 +189,26 @@ function geraCardsPo(cardspo)
 // --------------------- card generator --------- //
 
 
-
 // ------------------ ranking score ------------- //
 
-function scoreGame()
+function scoreGame(nomeDoJogador,scoreAtual, ranking)
 {
-/*
-const novoRanking = [...ranking];
+    const novoRanking = [...ranking];
 
     for (let i = 0; i < novoRanking.length; i++) {
         if (scoreAtual > novoRanking[i].score) {
             novoRanking.splice(i, 0, { nome: nomeDoJogador, score: scoreAtual });
             novoRanking.pop();
             alert('parabéns! alcançou uma posição no ranking');
-            window.location = 'score.html';
+            //window.location = 'score.html';
+            inserido = true;
             break;
         }
-        else
-        {
-            location.reload();
-        }
     }
-
     return novoRanking;
-
-    localStorage.setItem("ranking", JSON.stringify(atualizarRanking(namePlayer, jogador, score)));
-
-    */
 }
 
 // ------------------ ranking score ------------- //
 
-window.addEventListener('load', function(){
-const score_div = document.getElementById('score_joken');
-const ranking = JSON.parse(localStorage.getItem("ranking")) || [];
-    let html = `
-    <table class="ranking-table">
-        <thead>
-            <tr>
-                <th>Posição</th>
-                <th>Nome</th>
-                <th>Pontos</th>
-            </tr>
-        </thead>
-    <tbody>
-    `;
-
-    ranking.forEach((item, index) => {
-        html += `
-        <tr>
-            <td>${index + 1}º</td>
-            <td>${item.nome}</td>
-            <td>${item.score}</td>
-        </tr>
-    `;
-    });
-
-    html += `
-        </tbody>
-    </table>
-    `;
-
-    document.getElementById("score_joken").innerHTML = html;
-})
 
 
