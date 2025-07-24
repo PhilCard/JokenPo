@@ -1,4 +1,4 @@
-# 🪨📄✂️ Jokenpô - Pedra, Papel e Tesoura
+# Jokenpô - Pedra, Papel e Tesoura
 
 Um jogo clássico de Jokenpô (Pedra, Papel e Tesoura) feito com HTML, CSS e JavaScript. O jogador desafia a CPU e acompanha o placar em tempo real.
 
@@ -10,7 +10,7 @@ Um jogo clássico de Jokenpô (Pedra, Papel e Tesoura) feito com HTML, CSS e Jav
 
 ## 📸 Imagens
 <div align="start">Add commentMore actions
-  <img src="assets/img/jokenpo.gif" alt="joken_gif">
+  <img src="assets/img/jokenpo_img.PNG" alt="joken_img">
 </div>
 ---
 
@@ -30,6 +30,7 @@ Um jogo clássico de Jokenpô (Pedra, Papel e Tesoura) feito com HTML, CSS e Jav
 
 - HTML5
 - CSS3 (com animações)
+- Bootstrap
 - JavaScript (lógica do jogo)
 
 ---
